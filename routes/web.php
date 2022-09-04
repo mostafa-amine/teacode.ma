@@ -18,6 +18,7 @@ Route::middleware('cache.headers:public;max_age=15811200;etag')->group(function 
 
     // \Auth::routes();
 
+    Route::get('/assets/{type}', 'ActionController@getAssets');
 
     Route::group(['prefix' => 'admin'], function () {
 
@@ -31,7 +32,6 @@ Route::middleware('cache.headers:public;max_age=15811200;etag')->group(function 
         Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
         Route::group(['middleware' => 'auth'], function() {
-            Route::get('/assets/{type}', 'ActionController@getAssets');
             Route::get('/actions', 'ActionController@getActions')->name('actions');
             Route::get('/events', 'ActionController@getEvents')->name('events.index');
             Route::get('/calendar', 'ActionController@calendar');

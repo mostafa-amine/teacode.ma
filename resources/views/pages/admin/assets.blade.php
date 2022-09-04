@@ -1,6 +1,6 @@
-@extends('pages.admin.app')
+@extends('layout.page')
 
-@section('admin-content')
+@section('page-content')
     <div class="assets">
         <div class="row mt-5">
             <div class="col-12">

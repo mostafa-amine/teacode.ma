@@ -134,11 +134,11 @@ class ActionController extends Controller
         try {
             $base_path = base_path();
             try {
-                $path = public_path() . '/../../assets/shared/img/' . $type;
+                $path = base_path('../assets/shared/img/' . $type);
                 $_base_path = str_replace('base', '', $base_path);
                 $files = \File::files($path);
             } catch (\Throwable $th) {
-                $path = public_path() . '/assets/shared/img/' . $type;
+                $path = public_path('assets/shared/img/' . $type);
                 $_base_path = $base_path . '\public\\';
                 $files = \File::files($path);
             }

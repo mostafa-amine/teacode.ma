@@ -14,7 +14,7 @@
                         <div class="feature-img mb-2">
                             <div class="image">
                                 <img class="w-100 m-auto d-block"
-                                src="{{ $contributor->image }}" alt="" title={{  $contributor->role }} loading="lazy">
+                                src="{{ $contributor->image }}" alt="" title="{{  $contributor->slug . ' - ' . $contributor->role }}" loading="lazy">
                             </div>
                         </div>
                         <div class="text-data text-center">

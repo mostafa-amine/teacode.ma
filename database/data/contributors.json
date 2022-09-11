@@ -111,7 +111,27 @@
     },
     {
         "fullname": "abderrahman",
-        "role": "helper",
+        "role": "host",
         "slug": "black-purple"
+    },
+    {
+        "fullname": "ilyass",
+        "role": "helper",
+        "slug": "ilyass"
+    },
+    {
+        "fullname": "zakaria",
+        "role": "helper",
+        "slug": "zakaria"
+    },
+    {
+        "fullname": "H₃O⁺",
+        "role": "helper",
+        "slug": "h3o"
+    },
+    {
+        "fullname": "ahmed",
+        "role": "helper",
+        "slug": "void"
     }
 ]

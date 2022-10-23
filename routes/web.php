@@ -18,7 +18,7 @@ Route::middleware('cache.headers:public;max_age=15811200;etag')->group(function 
 
     // \Auth::routes();
 
-    Route::get('/assets/{type}', 'ActionController@getAssets');
+    Route::get('/_assets/{type?}', 'PageController@getAssets');
 
     Route::group(['prefix' => 'admin'], function () {
 
@@ -32,14 +32,17 @@ Route::middleware('cache.headers:public;max_age=15811200;etag')->group(function 
         Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
         Route::group(['middleware' => 'auth'], function() {
-            Route::get('/actions', 'ActionController@getActions')->name('actions');
-            Route::get('/events', 'ActionController@getEvents')->name('events.index');
-            Route::get('/calendar', 'ActionController@calendar');
-            Route::get('/events/{event}', 'ActionController@getEvent')->name('events.get');
-            Route::post('/events', 'ActionController@addEvent')->name('events.store');
-            Route::put('/events/{event}', 'ActionController@updateEvent')->name('events.update');
-            Route::delete('/events/{event}', 'ActionController@destroyEvent')->name('events.delete');
+            // Events
+            Route::get('/events', 'EventController@getEvents')->name('events.index');
+            Route::post('/events', 'EventController@updateEvent')->name('events.update');
+            Route::delete('/events/{event}', 'EventController@destroyEvent')->name('events.delete');
+            Route::get('/calendar', 'EventController@calendar');
+            // Contributors
+            Route::get('/contributors', 'ContributorController@getContributors')->name('contributors.get');
+            Route::post('/contributors', 'ContributorController@updateContributors')->name('contributors.update');
+            // Auth
             Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
         });
     });
 

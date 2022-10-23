@@ -175,7 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        HTMLMin\HTMLMin\HTMLMinServiceProvider::class
+        HTMLMin\HTMLMin\HTMLMinServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
     ],
 
     /*

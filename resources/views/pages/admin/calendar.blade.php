@@ -1,6 +1,10 @@
 @extends('pages.admin.app')
 @section('js-after')
     <script defer src="{{ asset('/js/admin.app.js') }}"></script>
+    <link href="{{ asset('/extensions/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
+    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script defer src="{{ asset('/extensions/jquery.dataTables.min.js') }}"></script>
+    <script defer src="{{ asset('/extensions/dataTables.bootstrap5.min.js') }}"></script>
 @endsection
 @section('admin-content')
     <div class="calendar">

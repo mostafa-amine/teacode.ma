@@ -1,7 +1,11 @@
 [
     {
-        "title": "actions",
-        "slug": "admin/actions"
+        "title": "contributors",
+        "slug": "admin/contributors"
+    },
+    {
+        "title": "assets",
+        "slug": "_assets"
     },
     {
         "title": "events",

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Contributor;
 use App\Models\Event;
 
 if (!function_exists('extractExtendedProps')) {
@@ -10,7 +11,7 @@ if (!function_exists('extractExtendedProps')) {
         }
         $extended_props = [];
         foreach ($extended_props_raw as $prop) {
-            $x = str_replace('\n', '\\n', $prop[1]);
+            $x = trim(str_replace('\n', '\\n', $prop[1]));
             $extended_props[$prop[0]] = $x;
         }
         return $extended_props;
@@ -50,19 +51,6 @@ if (!function_exists('getNextEvent')) {
             return $e->_start_date;
         })->values();
         return count($events) > 0 ? $events[0] : null;
-    }
-}
-
-if (!function_exists('getActions')) {
-    function getActions()
-    {
-        $actions = [
-            [
-                'slug' => 'event',
-                'header' => 'Event Form',
-            ],
-        ];
-        return $actions;
     }
 }
 
@@ -117,7 +105,8 @@ if (!function_exists('getLinks')) {
             'paypal' => 'https://www.paypal.me/drissboumlik',
 
             // Ineraction Links
-            'interview' => 'https://docs.google.com/forms/d/e/1FAIpQLScwnhgc85gG4vBxq8d0uTxlBkvX6bR4LNcuI7_DNz9WEk0NTw/viewform',
+            // 'interview' => 'https://docs.google.com/forms/d/e/1FAIpQLScwnhgc85gG4vBxq8d0uTxlBkvX6bR4LNcuI7_DNz9WEk0NTw/viewform',
+            'interview' => 'mailto:contact@teacode.ma?subject=TeaCode : Request Mock Interview&body=Here is the data we need :%0D%0D- Your Discord ID (ex : username#1234) : ??%0D- Upload your resume%0D%0D%0D',
             'form' => 'https://docs.google.com/forms/d/e/1FAIpQLScfvQBS4fIO7bFx5u2TfXlflPRyvd5z1aSozOCKs3hnz9MfCA/viewform',
             'apply' => 'https://docs.google.com/forms/d/e/1FAIpQLScLQzCNId6LgFpMgpk3-xatL8TBn8nVPF7oWZCPBnqKpvdh2Q/viewform',
 
@@ -182,7 +171,7 @@ if (!function_exists('getColorRole')) {
 
 
 if (!function_exists('getContributorBadge')) {
-    function getContributorBadge($contributor)
+    function getContributorBadge($role)
     {
         $badges = [
             'founder' => '💠',
@@ -190,7 +179,7 @@ if (!function_exists('getContributorBadge')) {
             'host' => '🎤',
             'helper' => '🍃',
         ];
-        return $badges[$contributor->role];
+        return $badges[$role];
     }
 }
 

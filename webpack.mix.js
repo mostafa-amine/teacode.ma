@@ -20,6 +20,7 @@ mix
     .sass('resources/sass/app.sass', 'public/css')
     .copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts')
     .copy('resources/assets', 'public/assets')
+    .copy('resources/extensions', 'public/extensions')
     .purgeCss({
         extend: {
             content: [path.join(__dirname, 'database/data/**/*.json'),

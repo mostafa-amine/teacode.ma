@@ -34,7 +34,6 @@ class EventController extends Controller
 
     public function updateEvent(Request $request)
     {
-        dd($request->all());
         // $data['end_date'] = \Carbon\Carbon::createFromFormat('Y-m-d', $data['end_date']);
         // $event = Event::create($dataToStore);
         // \Carbon\Carbon::createFromFormat('Y-m-d', $data['start_date'])
@@ -47,16 +46,16 @@ class EventController extends Controller
             $data = $request->all();
             $extended_props = extractExtendedProps($request->get('extended_props'));
             $dataToUpdate = [
-                'start_time' =>  !$event ? $data['start_time'] : $event->start_time,
-                'end_time' => !$event ? $data['end_time'] : $event->end_time,
-                'start_date' => $data['start_date'] ? \Carbon\Carbon::createFromFormat('Y-m-d', $data['start_date']) : $event->start_date,
-                'end_date' => $data['end_date'] ? \Carbon\Carbon::createFromFormat('Y-m-d', $data['end_date']) : $event->end_date,
-                'days_of_week' => !$event ? $data['days_of_week'] : $event->days_of_week,
-                'background_color' => !$event ? $data['background_color'] : $event->background_color,
-                'text_color' => !$event ? $data['text_color'] : $event->text_color,
-                'url' => !$event ? $data['url'] : $event->url,
-                'title' => !$event ? $data['title'] : $event->title ,
-                'is_private' => !$event ? (isset($data['is_private']) ? true : false) : $event->is_private,
+                'start_time' =>  isset($data['start_time']) ? $data['start_time'] : $event->start_time,
+                'end_time' => isset($data['end_time']) ? $data['end_time'] : $event->end_time,
+                'start_date' => isset($data['start_date']) ? \Carbon\Carbon::createFromFormat('Y-m-d', $data['start_date']) : $event->start_date,
+                'end_date' => isset($data['end_date']) ? \Carbon\Carbon::createFromFormat('Y-m-d', $data['end_date']) : $event->end_date,
+                'days_of_week' => isset($data['days_of_week']) ? $data['days_of_week'] : $event->days_of_week,
+                'background_color' => isset($data['background_color']) ? $data['background_color'] : $event->background_color,
+                'text_color' => isset($data['text_color']) ? $data['text_color'] : $event->text_color,
+                'url' => isset($data['url']) ? $data['url'] : $event->url,
+                'title' => isset($data['title']) ? $data['title'] : $event->title ,
+                'is_private' => isset($data['is_private']) ? ($data['is_private'] == 'on' ? true : false) : $event->is_private,
                 'extended_props' => $extended_props ? json_decode(json_encode($extended_props)) : $event->extended_props,
             ];
             if (key_exists('days_of_week', $data) && $data['days_of_week'] != null) {

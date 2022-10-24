@@ -16,19 +16,34 @@ function getEvents() {
         },
         columns: [
             {data: "id", name: "id", title: "id"},
-            {data: "title", name: "title", title: "title"},
-            {data: "url", name: "url", title: "url"},
-            {data: "start_date", name: "start_date", title: "start_date"},
-            {data: "start_time", name: "start_time", title: "start_time"},
-            {data: "end_time", name: "end_time", title: "end_time"},
-            {data: "end_date", name: "end_date", title: "end_date"},
-            {data: "days_of_week", name: "days_of_week", title: "days_of_week"},
-            {data: "is_private", name: "is_private", title: "is_private"},
+            {data: "title", name: "title", title: "Title"},
+            {data: "url", name: "url", title: "URL"},
             {
-                data: "extended_props", name: "extended_props", title: "extended_props",
+                data: "start_date", name: "start_date", title: "Start Date",
+                render: function(data, type, row) {
+                    return (new Date(data)).toDateString();
+                }
+            },
+            {data: "start_time", name: "start_time", title: "Start Time"},
+            {
+                data: "end_date", name: "end_date", title: "End Date",
+                render: function(data, type, row) {
+                    return (new Date(data)).toDateString();
+                }
+            },
+            {data: "end_time", name: "end_time", title: "End Time"},
+            {data: "days_of_week", name: "days_of_week", title: "Days Of Week"},
+            {data: "is_private", name: "is_private", title: "Is Private"},
+            {
+                data: "extended_props", name: "extended_props", title: "Extended Props",
                 render: function (data, type, row) {
-                    console.log(data);
-                    return ``;
+                    let dom = '';
+                    let index = 0;
+                    for (let property in data) {
+                        console.log(property, data[property]);
+                        dom += `<p class="extended_props_row">${property} : ${data[property]}</p>`;
+                    }
+                    return dom;
                 }
             },
             {
@@ -52,7 +67,7 @@ function initCalendarActions() {
                         <div class="col-6"><input type="text" class="form-control" name="extended_props[${index}][]" placeholder="Field value"/></div>
                         <div class="col-1 remove-extended_props"><i class="fa-solid fa-minus-circle"></i></div>
                     </div>`;
-        $('.extended_props_wrapper').append(dom);
+        $('.extended_props_items').append(dom);
     });
     $('.event').on('click', '.remove-extended_props', function (){
         $(this).parent('.extended_props_row').remove();
@@ -71,6 +86,18 @@ function initCalendarActions() {
         $('#text_color').val(row.text_color);
         $('#days_of_week').val(row.days_of_week);
         $('#is_private').prop('checked', row.is_private);
+        let dom = '';
+        let index = 0;
+        let data = row.extended_props;
+        for (let property in data) {
+            dom += `<div class="row extended_props_row">
+                        <div class="col-5"><input type="text" class="form-control" name="extended_props[${index}][]" placeholder="Field name" value="${property}"/></div>
+                        <div class="col-6"><input type="text" class="form-control" name="extended_props[${index}][]" placeholder="Field value" value="${data[property]}"/></div>
+                        <div class="col-1 remove-extended_props"><i class="fa-solid fa-minus-circle"></i></div>
+                    </div>`;
+            index++;
+        }
+        $('.extended_props_items').html(dom);
     });
     // $('.event').on('click', '.update-event', function (e) {
     //     let data = $('.event form').serializeArray();

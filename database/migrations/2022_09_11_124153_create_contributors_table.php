@@ -19,7 +19,6 @@ class CreateContributorsTable extends Migration
             $table->string('role');
             $table->string('slug');
             $table->string('image');
-            $table->string('badge');
             $table->timestamps();
             $table->softDeletes();
         });

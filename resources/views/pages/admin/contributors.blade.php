@@ -27,19 +27,18 @@
                         <div class="accordion-body">
                             <div class="contributor form-wrapper mt-2 row">
                                 <div class="col-8">
-                                    <form action="{{ route('contributors.update', isset($contributor) ? $contributor->id : '') }}"
-                                            method="post" enctype="multipart/form-data">
+                                    <form>
                                         @csrf
                                         <input type="hidden" id="contributor-id" name="contributor_id">
-                                        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name" required value="{{ $contributor->fullname ?? old('fullname') }}"/>
+                                        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name" required />
                                         <select class="form-control" id="role" name="role" required>
                                             <option value="role" disabled selected>Role</option>
-                                            <option value="helper" {{ ($contributor->role ?? old('role')) == 'helper' ? 'selected' : '' }}>🍃 Helper</option>
-                                            <option value="host" {{ ($contributor->role ?? old('role')) == 'host' ? 'selected' : '' }}>🎤 Host</option>
-                                            <option value="staff" {{ ($contributor->role ?? old('role')) == 'staff' ? 'selected' : '' }}>🍂 Staff</option>
+                                            <option value="helper">🍃 Helper</option>
+                                            <option value="host">🎤 Host</option>
+                                            <option value="staff">🍂 Staff</option>
                                         </select>
-                                        <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" required value="{{ $contributor->slug ?? old('slug') }}"/>
-                                        <input type="file" class="form-control" id="image" name="image" placeholder="Image" value="{{ $contributor->image ?? old('image') }}"/>
+                                        <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" required />
+                                        <input type="file" class="form-control" id="image" name="image" placeholder="Image" />
                                         <div class="btn-actions">
                                             <button type="submit" class="form-control btn tc-blue-bg">Submit</button>
                                         </div>

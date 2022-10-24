@@ -15,7 +15,6 @@ class Contributor extends Model
         'role',
         'slug',
         'image',
-        'badge',
     ];
 
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];

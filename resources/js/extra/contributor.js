@@ -7,20 +7,18 @@ function getContributor() {
         ajax: {
             type: 'GET',
             url: '/admin/contributors',
-            data: {api: true},
         },
         columns: [
             {data: "id", name: "id", title: "id"},
-            {data: "fullname", name: "fullname", title: "fullname"},
-            {data: "role", name: "role", title: "role"},
-            {data: "slug", name: "slug", title: "slug"},
+            {data: "fullname", name: "fullname", title: "Full Name"},
+            {data: "role", name: "role", title: "Role"},
+            {data: "slug", name: "slug", title: "Slug"},
             {
-                data: "image", name: "image", title: "image",
+                data: "image", name: "image", title: "Picture",
                 render: function(data, type, row) {
                     return `<img src="${data}" class="square-75" />`;
                 }
             },
-            {data: "badge", name: "badge", title: "badge"},
             {
                 data: "id", name: "id", title: "Actions",
                 render: function(data, type, row) {

@@ -40,7 +40,6 @@ function getEvents() {
                     let dom = '';
                     let index = 0;
                     for (let property in data) {
-                        console.log(property, data[property]);
                         dom += `<p class="extended_props_row">${property} : ${data[property]}</p>`;
                     }
                     return dom;
@@ -74,7 +73,6 @@ function initCalendarActions() {
     });
     $('#events-list').on('click', '.prepare-update-event', function (e) {
         let row = table.row($(this).closest('tr')).data();
-        console.log(row);
         $('#event-id').val(row.id);
         $('#title').val(row.title);
         $('#url').val(row.url);
@@ -138,7 +136,6 @@ function initCalendarActions() {
     $('#event-form').on('submit', function (e) {
         e.preventDefault();
         let formData = new FormData(this)
-        console.log(formData);
         $.ajax({
             method: 'POST',
             url: '/admin/events',
@@ -207,7 +204,6 @@ function initCalendar(calendarEl) {
     // calendar.setOption('height', '100%');
 
     $('#event-detail .close').on('click', function (e) {
-        // console.log('child', e.currentTarget, e.target);
         $('#event-detail').addClass('animate__fadeOut').removeClass('animate__fadeIn');
         setTimeout(() => {
             $('#event-detail').removeClass('d-block show in');

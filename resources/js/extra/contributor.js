@@ -73,7 +73,6 @@ function initContributorActions(){
     $('#contributor-form').on('submit', function (e) {
         e.preventDefault();
         let formData = new FormData(this)
-        console.log(formData);
         $.ajax({
             method: 'POST',
             url: '/admin/contributors',

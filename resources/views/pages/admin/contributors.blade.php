@@ -27,7 +27,7 @@
                         <div class="accordion-body">
                             <div class="contributor form-wrapper mt-2 row">
                                 <div class="col-8">
-                                    <form>
+                                    <form method="POST" action="{{ route('contributors.update') }}" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" id="contributor-id" name="contributor_id">
                                         <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name" required />
@@ -45,7 +45,7 @@
                                     </form>
                                 </div>
                                 <div class="image-preview-wrapper col-4 d-flex justify-content-center">
-                                    <img src="" id="image-preview" class="img-fluid img-thumbnail">
+                                    <img src="/storage/images/people/default/male.png" id="image-preview" class="img-fluid img-thumbnail">
                                 </div>
                             </div>
                         </div>

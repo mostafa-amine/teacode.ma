@@ -15,7 +15,10 @@ class ContributorController extends Controller
             $data = new \stdClass;
             $data->title = "TeaCode | Contributors List";
             $menu = json_decode(\File::get(base_path() . '/database/data/admin/menu.json'));
-            return DataTables::eloquent(Contributor::orderBy('id'))->make(true);
+            if ($request->has('api')) {
+                return DataTables::eloquent(Contributor::orderBy('id'))->make(true);
+            }
+            return view('pages.admin.contributors', ['menu' => $menu, 'data' => $data]);
         } catch (\Throwable $th) {
             throw $th;
         }

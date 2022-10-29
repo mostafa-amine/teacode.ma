@@ -7,6 +7,7 @@ function getContributor() {
         ajax: {
             type: 'GET',
             url: '/admin/contributors',
+            data: {api: true},
         },
         columns: [
             {data: "id", name: "id", title: "id"},

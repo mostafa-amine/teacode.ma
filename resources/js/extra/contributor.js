@@ -76,7 +76,7 @@ function initContributorActions(){
         console.log(formData);
         $.ajax({
             method: 'POST',
-            url: $(this).data('url'),
+            url: '/admin/contributors',
             data: formData,
             processData: false,
             contentType: false,

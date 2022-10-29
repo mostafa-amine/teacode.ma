@@ -50,8 +50,8 @@ function getEvents() {
                 data: "id", name: "id", title: "Actions",
                 render: function(data, type, row) {
                     return `<div class="actions d-flex justify-content-around">
-                        <div class="update-event cursor-pointer fs-2"><i class="fa-solid fa-pen-to-square"></i></div>
-                        <div class="delete-event cursor-pointer fs-2"><i class="fa-solid fa-trash"></i></div>
+                        <div class="prepare-update-event cursor-pointer fs-2"><i class="fa-solid fa-pen-to-square"></i></div>
+                        <div class="delete-event cursor-pointer fs-2" data-id="${data}"><i class="fa-solid fa-trash"></i></div>
                     </div>`;
                 }
             },
@@ -72,7 +72,7 @@ function initCalendarActions() {
     $('.event').on('click', '.remove-extended_props', function (){
         $(this).parent('.extended_props_row').remove();
     });
-    $('#events-list').on('click', '.update-event', function (e) {
+    $('#events-list').on('click', '.prepare-update-event', function (e) {
         let row = table.row($(this).closest('tr')).data();
         console.log(row);
         $('#event-id').val(row.id);
@@ -99,38 +99,62 @@ function initCalendarActions() {
         }
         $('.extended_props_items').html(dom);
     });
-    // $('.event').on('click', '.update-event', function (e) {
-    //     let data = $('.event form').serializeArray();
-    //     $.ajax({
-    //         method: 'PUT',
-    //         url: '/admin/events/' + $(this).data('id'),
-    //         data: data,
-    //         success: function (response) {
-    //             console.log(response);
-    //             alert('Updated');
-    //         },
-    //         error: function (jqXHR, textStatus, errorThrown){
-    //             console.log(jqXHR, textStatus, errorThrown);
-    //             alert('Error');
-    //         }
-    //     });
-    // });
-    // $('.event').on('click', '.delete-event', function (e) {
-    //     // e.preventDefault();
-    //     $.ajax({
-    //         method: 'DELETE',
-    //         url: '/admin/events/' + $(this).data('id'),
-    //         success: function (response) {
-    //             console.log(response);
-    //             alert('Deleted');
-    //             history.back();
-    //         },
-    //         error: function (jqXHR, textStatus, errorThrown){
-    //             console.log(jqXHR, textStatus, errorThrown);
-    //             alert('Error');
-    //         }
-    //     });
-    // });
+    $('#events-list').on('click', '.delete-event', function (e) {
+        if (!confirm('Are you sur ?')) {
+            return;
+        }
+        $.ajax({
+            method: 'POST',
+            url: '/admin/events',
+            data: {deleting: true, event_id: $(this).data('id')},
+            success: function (response) {
+                alert(response.message);
+                table.ajax.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                console.log(jqXHR, textStatus, errorThrown);
+                alert('Error');
+            }
+        });
+    });
+    $('.btn-form-clear').on('click', function() {
+        $('#contributor-id').val('');
+        $('#role').val('role');
+        
+        $('#event-id').val('');
+        $('#title').val('');
+        $('#url').val('');
+        $('#start_date').val('');
+        $('#end_date').val('');
+        $('#start_time').val('');
+        $('#end_time').val('');
+        $('#background_color').val('');
+        $('#text_color').val('');
+        $('#days_of_week').val('');
+        $('#is_private').prop('checked', false);
+        $('.extended_props_items').empty();
+    });
+    
+    $('#event-form').on('submit', function (e) {
+        e.preventDefault();
+        let formData = new FormData(this)
+        console.log(formData);
+        $.ajax({
+            method: 'POST',
+            url: '/admin/events',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                table.ajax.reload();
+                alert(response.message);
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                console.log(jqXHR, textStatus, errorThrown);
+                alert('Error');
+            }
+        });
+    });
 }
 
 function initCalendar(calendarEl) {

@@ -43,6 +43,10 @@ class EventController extends Controller
             if ($event_id) {
                 $event = Event::find($event_id);
             }
+            if ($request->has('deleting')) {
+                $event->delete();
+                return ['message' => 'Deleted Successfully', 'event' => $event];
+            }
             $data = $request->all();
             $extended_props = extractExtendedProps($request->get('extended_props'));
             $dataToUpdate = [
@@ -65,20 +69,12 @@ class EventController extends Controller
             }
             if ($event) {
                 $event->update($dataToUpdate);
+                $data = ['message' => 'Event Updated', 'event' => $event];
             } else {
                 $event = Event::create($dataToUpdate);
+                $data = ['message' => 'Event Created', 'event' => $event];
             }
-            return back();
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public function destroyEvent(Request $request, Event $event)
-    {
-        try {
-            $event->delete();
-            return ['event' => $event];
+            return $data;
         } catch (\Throwable $th) {
             throw $th;
         }

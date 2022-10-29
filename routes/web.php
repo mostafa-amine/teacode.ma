@@ -35,7 +35,6 @@ Route::middleware('cache.headers:public;max_age=15811200;etag')->group(function 
             // Events
             Route::get('/events', 'EventController@getEvents')->name('events.index');
             Route::post('/events', 'EventController@updateEvent')->name('events.update');
-            Route::delete('/events/{event}', 'EventController@destroyEvent')->name('events.delete');
             Route::get('/calendar', 'EventController@calendar');
             // Contributors
             Route::get('/contributors', 'ContributorController@getContributors')->name('contributors.get');

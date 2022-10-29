@@ -18,16 +18,15 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#event-form" aria-expanded="true" aria-controls="event-form">
+                            data-bs-target="#event-form-wrapper" aria-expanded="true" aria-controls="event-form-wrapper">
                             Create Event
                         </button>
                     </h2>
-                    <div id="event-form" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    <div id="event-form-wrapper" class="accordion-collapse collapse" aria-labelledby="headingOne"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <div class="event form-wrapper mt-2">
-                                <form action="{{ route('events.update') }}" method="post">
-                                    @csrf
+                                <form id="event-form">
                                     <input type="hidden" id="event-id" name="event_id">
                                     <input type="text" class="form-control" id="title" name="title" placeholder="Titre" required />
                                     <input type="text" class="form-control" id="url" name="url" placeholder="Url" required />
@@ -59,6 +58,7 @@
                                     </div>
                                     <div class="btn-actions">
                                         <button type="submit" class="form-control btn tc-blue-bg">Submit</button>
+                                        <button type="button" class="form-control btn tc-grey-dark-bg btn-form-clear">Clear</button>
                                     </div>
                                 </form>
                             </div>

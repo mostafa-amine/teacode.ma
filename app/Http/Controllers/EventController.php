@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 
 class EventController extends Controller
 {
@@ -24,7 +24,7 @@ class EventController extends Controller
             $data->title = 'TeaCode | Events list';
             $menu = json_decode(\File::get(base_path() . '/database/data/admin/menu.json'));
             if ($request->has('api')) {
-                return Datatables::eloquent(Event::orderBy('start_date', 'desc'))->make(true);
+                return DataTables::eloquent(Event::orderBy('start_date', 'desc'))->make(true);
             }
             return view('pages.admin.events', ['menu' => $menu, 'data' => $data]);
         } catch (\Throwable $th) {

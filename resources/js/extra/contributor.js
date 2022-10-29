@@ -24,8 +24,8 @@ function getContributor() {
                 data: "id", name: "id", title: "Actions",
                 render: function(data, type, row) {
                     return `<div class="actions d-flex justify-content-around">
-                        <div class="update-contributor cursor-pointer fs-2"><i class="fa-solid fa-pen-to-square"></i></div>
-                        <div class="delete-contributor cursor-pointer fs-2"><i class="fa-solid fa-trash"></i></div>
+                        <div class="prepare-update-contributor cursor-pointer fs-2"><i class="fa-solid fa-pen-to-square"></i></div>
+                        <div class="delete-contributor cursor-pointer fs-2" data-id="${data}"><i class="fa-solid fa-trash"></i></div>
                     </div>`;
                 }
             },
@@ -33,19 +33,17 @@ function getContributor() {
     });
 }
 function initContributorActions(){
-    $('.contributor').on('click', '.delete-contributor', function (e) {
-        e.preventDefault();
+    $('#contributors-list').on('click', '.delete-contributor', function (e) {
         if (!confirm('Are you sur ?')) {
             return;
         }
         $.ajax({
             method: 'POST',
-            url: $(this).data('url'),
-            data: {'deleting': true},
+            url: '/admin/contributors',
+            data: {deleting: true, contributor_id: $(this).data('id')},
             success: function (response) {
-                console.log(response);
-                alert('Deleted');
-                history.back();
+                alert(response.message);
+                table.ajax.reload();
             },
             error: function (jqXHR, textStatus, errorThrown){
                 console.log(jqXHR, textStatus, errorThrown);
@@ -54,13 +52,43 @@ function initContributorActions(){
         });
     });
 
-    $('#contributors-list').on('click', '.update-contributor', function (e) {
+    $('#contributors-list').on('click', '.prepare-update-contributor', function (e) {
         let row = table.row($(this).closest('tr')).data();
         $('#contributor-id').val(row.id);
         $('#fullname').val(row.fullname);
         $('#role').val(row.role);
         $('#slug').val(row.slug);
         $('#image-preview').attr('src', row.image);
+    })
+    
+    $('.btn-form-clear').on('click', function() {
+        $('#contributor-id').val('');
+        $('#fullname').val('');
+        $('#role').val('role');
+        $('#slug').val('');
+        $('#image').val('');
+        $('#image-preview').attr('src', '/storage/images/people/default/male.png');
+    });
+    
+    $('#contributor-form').on('submit', function (e) {
+        e.preventDefault();
+        let formData = new FormData(this)
+        console.log(formData);
+        $.ajax({
+            method: 'POST',
+            url: $(this).data('url'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                table.ajax.reload();
+                alert(response.message);
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                console.log(jqXHR, textStatus, errorThrown);
+                alert('Error');
+            }
+        });
     })
 }
 

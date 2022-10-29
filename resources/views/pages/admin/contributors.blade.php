@@ -18,17 +18,16 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#contributor-form" aria-expanded="true" aria-controls="contributor-form">
+                            data-bs-target="#contributor-form-wrapper" aria-expanded="true" aria-controls="contributor-form-wrapper">
                             Create Contributor
                         </button>
                     </h2>
-                    <div id="contributor-form" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    <div id="contributor-form-wrapper" class="accordion-collapse collapse" aria-labelledby="headingOne"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <div class="contributor form-wrapper mt-2 row">
                                 <div class="col-8">
-                                    <form method="POST" action="{{ route('contributors.update') }}" enctype="multipart/form-data">
-                                        @csrf
+                                    <form id="contributor-form">
                                         <input type="hidden" id="contributor-id" name="contributor_id">
                                         <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name" required />
                                         <select class="form-control" id="role" name="role" required>
@@ -41,6 +40,7 @@
                                         <input type="file" class="form-control" id="image" name="image" placeholder="Image" />
                                         <div class="btn-actions">
                                             <button type="submit" class="form-control btn tc-blue-bg">Submit</button>
+                                            <button type="button" class="form-control btn tc-grey-dark-bg btn-form-clear">Clear</button>
                                         </div>
                                     </form>
                                 </div>

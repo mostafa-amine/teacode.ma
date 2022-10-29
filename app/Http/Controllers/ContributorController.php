@@ -33,7 +33,7 @@ class ContributorController extends Controller
         }
         if ($request->has('deleting')) {
             $contributor->delete();
-            return ['msg' => 'Deleted Successfully', 'contributor' => $contributor];
+            return ['message' => 'Deleted Successfully', 'contributor' => $contributor];
         }
         $image = $request->file('image');
         if ($image) {
@@ -51,9 +51,11 @@ class ContributorController extends Controller
         ];
         if ($contributor) {
             $contributor->update($data);
+            $data = ['message' => 'Contributor Updated', 'contributor' => $contributor];
         } else {
-            Contributor::create($data);
+            $contributor = Contributor::create($data);
+            $data = ['message' => 'Contributor Created', 'contributor' => $contributor];
         }
-        return redirect('/admin/contributors');
+        return $data;
     }
 }

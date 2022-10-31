@@ -24,26 +24,10 @@ class PageController extends Controller
         $data = new \stdClass;
         $data->contributors = Contributor::all();
         $data->title = 'TeaCode | Contributors';
-//        $db_data = [];
-//        try {
-//            \DB::beginTransaction();
-//            Contributor::truncate();
-//            $data->contributors = collect($data->contributors)
-//                                        ->map(function ($contributor, $key) use (&$db_data) {
-//                                            // $contributor->color =  getColorRole($contributor->role);
-//                                            $contributor->image = getContributorImage($contributor, $key);
-//                                            $contributor->badge = getContributorBadge($contributor->role);
-//                                            $db_data[] = (array)$contributor;
-//                                            return $contributor;
-//                                        }); //->shuffle()->values();
-//
-//            Contributor::insert($db_data);
-//            \DB::commit();
-//        } catch (\Throwable $th) {
-//            \DB::rollback();
-//            dd($db_data);
-//            throw $th;
-//        }
+        $data->contributors = $data->contributors->map(function ($contributor) {
+            $contributor->badge = getContributorBadge($contributor->role);
+            return $contributor;
+        })->shuffle()->values();
         return view('pages.contributors', ['data' => $data]);
     }
 

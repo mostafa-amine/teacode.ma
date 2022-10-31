@@ -43,7 +43,7 @@ function initContributorActions(){
             data: {deleting: true, contributor_id: $(this).data('id')},
             success: function (response) {
                 alert(response.message);
-                table.ajax.reload();
+                table.ajax.reload(null, false);
             },
             error: function (jqXHR, textStatus, errorThrown){
                 console.log(jqXHR, textStatus, errorThrown);
@@ -80,7 +80,7 @@ function initContributorActions(){
             processData: false,
             contentType: false,
             success: function (response) {
-                table.ajax.reload();
+                table.ajax.reload(null, false);
                 alert(response.message);
             },
             error: function (jqXHR, textStatus, errorThrown){

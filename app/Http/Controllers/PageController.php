@@ -58,6 +58,10 @@ class PageController extends Controller
         try {
             $base_path = base_path();
             $type ??= 'events';
+            $directories = array_map(function ($directory) {
+                $dirs = explode('/', $directory);
+                return $dirs[count($dirs) - 1];
+            }, \Storage::disk('_public')->directories('assets/shared/img'));
             try {
                 $path = base_path('../assets/shared/img/' . $type);
                 $_base_path = str_replace('base', '', $base_path);
@@ -73,6 +77,8 @@ class PageController extends Controller
             $menu = json_decode(\File::get($base_path . '/database/data/admin/menu.json'));
             $data = new \stdClass;
             $data->title = 'TeaCode | Assets';
+            $data->type = $type;
+            $data->dirLinks = $directories;
             return view('pages.admin.assets', ['data' => $data, 'files' => $files, 'menu' => $menu]);
         } catch (\Throwable $th) {
             throw $th;

@@ -4,7 +4,16 @@
     <div class="assets">
         <div class="row mt-5">
             <div class="col-12">
-                <h2 class="text-center tc-blue-dark-1 mb-5">Assets</h2>
+                <h2 class="text-center tc-blue-dark-1 mb-5">Assets | {{ $data->type }}</h2>
+                <div class="col-12">
+                    <ul class="list-group list-group-horizontal align-items-start">
+                        @foreach ($data->dirLinks as $link)
+                            <li class="list-group-item overflow-auto my-2 mx-3">
+                                <a href="/_assets/{{ $link }}" class="text-capitalize">{{ $link }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="row mt-3 mb-5 justify-content-center">

@@ -6,7 +6,11 @@ import listPlugin from '@fullcalendar/list';
 
 let table = undefined;
 function getEvents() {
-    table = $('#events-list').DataTable({
+    let eventslistElement = $('#events-list');
+    if (!eventslistElement.length) {
+        return;
+    }
+    table = eventslistElement.DataTable({
         processing: true,
         serverSide: true,
         ajax: {

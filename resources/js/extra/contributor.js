@@ -1,7 +1,11 @@
 
 let table = undefined;
 function getContributor() {
-    table = $('#contributors-list').DataTable({
+    let contributorsListElement = $('#contributors-list');
+    if (!contributorsListElement.length) {
+        return;
+    }
+    table = contributorsListElement.DataTable({
         processing: true,
         serverSide: true,
         ajax: {

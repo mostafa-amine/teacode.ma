@@ -16,7 +16,8 @@ class ContributorController extends Controller
             $data->title = "TeaCode | Contributors List";
             $menu = json_decode(\File::get(base_path() . '/database/data/admin/menu.json'));
             if ($request->has('api')) {
-                return DataTables::eloquent(Contributor::orderBy('id'))->make(true);
+                $contributors = Contributor::withTrashed()->orderBy('deleted_at')->orderBy('id');
+                return DataTables::eloquent($contributors)->make(true);
             }
             return view('pages.admin.contributors', ['menu' => $menu, 'data' => $data]);
         } catch (\Throwable $th) {
@@ -28,12 +29,16 @@ class ContributorController extends Controller
         $contributor_id = $request->get('contributor_id');
         $contributor = null;
         if ($contributor_id) {
-            $contributor = Contributor::find($contributor_id);
+            $contributor = Contributor::withTrashed()->find($contributor_id);
             $path = $contributor->image;
         }
         if ($request->has('deleting')) {
             $contributor->delete();
             return ['message' => 'Deleted Successfully', 'contributor' => $contributor];
+        }
+        if ($request->has('restore')) {
+            $contributor->restore();
+            return ['message' => 'Restored Successfully', 'contributor' => $contributor];
         }
         $image = $request->file('image');
         if ($image) {

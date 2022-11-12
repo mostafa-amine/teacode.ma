@@ -25,11 +25,20 @@ function getContributor() {
                 }
             },
             {
+                data: "deleted_at", name: "deleted_at", title: "Active",
+                render: function(data, type, row) {
+                    console.log(data);
+                    let color = data ? 'red' : 'green';
+                    return `<div><i class="fa-solid fa-circle" style="color: ${color}"></i></div>`;
+                }
+            },
+            {
                 data: "id", name: "id", title: "Actions",
                 render: function(data, type, row) {
                     return `<div class="actions d-flex justify-content-around">
                         <div class="prepare-update-contributor cursor-pointer fs-2"><i class="fa-solid fa-pen-to-square"></i></div>
                         <div class="delete-contributor cursor-pointer fs-2" data-id="${data}"><i class="fa-solid fa-trash"></i></div>
+                        <div class="restore-contributor cursor-pointer fs-2" data-id="${data}"><i class="fa-solid fa-rotate-left"></i></div>
                     </div>`;
                 }
             },
@@ -37,6 +46,25 @@ function getContributor() {
     });
 }
 function initContributorActions(){
+    $('#contributors-list').on('click', '.restore-contributor', function (e) {
+        if (!confirm('Are you sur ?')) {
+            return;
+        }
+        $.ajax({
+            method: 'POST',
+            url: '/admin/contributors',
+            data: {restore: true, contributor_id: $(this).data('id')},
+            success: function (response) {
+                alert(response.message);
+                table.ajax.reload(null, false);
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                console.log(jqXHR, textStatus, errorThrown);
+                alert('Error');
+            }
+        });
+    });
+    
     $('#contributors-list').on('click', '.delete-contributor', function (e) {
         if (!confirm('Are you sur ?')) {
             return;

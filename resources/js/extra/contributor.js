@@ -27,7 +27,6 @@ function getContributor() {
             {
                 data: "deleted_at", name: "deleted_at", title: "Active",
                 render: function(data, type, row) {
-                    console.log(data);
                     let color = data ? 'red' : 'green';
                     return `<div><i class="fa-solid fa-circle" style="color: ${color}"></i></div>`;
                 }
@@ -72,7 +71,7 @@ function initContributorActions(){
         $.ajax({
             method: 'POST',
             url: '/admin/contributors',
-            data: {deleting: true, contributor_id: $(this).data('id')},
+            data: {delete: true, contributor_id: $(this).data('id')},
             success: function (response) {
                 alert(response.message);
                 table.ajax.reload(null, false);

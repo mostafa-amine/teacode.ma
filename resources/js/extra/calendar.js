@@ -108,7 +108,7 @@ function initCalendarActions() {
         $.ajax({
             method: 'POST',
             url: '/admin/events',
-            data: {deleting: true, event_id: $(this).data('id')},
+            data: {delete: true, event_id: $(this).data('id')},
             success: function (response) {
                 alert(response.message);
                 table.ajax.reload(null, false);

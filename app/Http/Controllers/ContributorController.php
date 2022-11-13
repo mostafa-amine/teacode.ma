@@ -32,7 +32,7 @@ class ContributorController extends Controller
             $contributor = Contributor::withTrashed()->find($contributor_id);
             $path = $contributor->image;
         }
-        if ($request->has('deleting')) {
+        if ($request->has('delete')) {
             $contributor->delete();
             return ['message' => 'Deleted Successfully', 'contributor' => $contributor];
         }

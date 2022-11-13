@@ -43,7 +43,7 @@ class EventController extends Controller
             if ($event_id) {
                 $event = Event::find($event_id);
             }
-            if ($request->has('deleting')) {
+            if ($request->has('delete')) {
                 $event->delete();
                 return ['message' => 'Deleted Successfully', 'event' => $event];
             }

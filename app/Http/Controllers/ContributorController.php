@@ -47,6 +47,10 @@ class ContributorController extends Controller
             // $x = $request->file('image')->storeAs('/public/images/people/contributors', $image_name);
             $path = \Storage::disk('public')->putFileAs('images/people/contributors', $image, $image_name);
             $path = "/storage/$path";
+        } else if (!$contributor_id) {
+            $defaultImages = \Storage::disk('public')->files('images/logos');
+            $randomImage = $defaultImages[rand(0, count($defaultImages) - 1)];
+            $path = "/storage/$randomImage";
         }
         $data = [
             'fullname' => $request->get('fullname'),

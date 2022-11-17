@@ -13,7 +13,7 @@ class SitemapController extends Controller
         $filename = 'sitemap.xml';
         return \Response::make(file_get_contents($filePath), 200, [
             'Content-Type' => 'application/xml',
-            'Content-Disposition' => 'inline; filename="'.$filename.'"',
+            'Content-Disposition' => "inline; filename=$filename",
             // 'Content-Transfer-Encoding'=> 'binary',
             // 'Accept-Ranges'=> 'bytes'
         ]);

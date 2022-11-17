@@ -22,11 +22,13 @@ if (!function_exists('getNextEvent')) {
     {
         $events = Event::where(function ($q){
             $q->whereNull('days_of_week')
-                ->whereDate('start_date', '>=', now());
+                ->whereDate('start_date', '>=', now())
+                ->whereTime('start_time', '>=', now()->toTimeString());
             })
             ->orWhere(function ($q) {
                 $q->whereNotNull('days_of_week')
-                    ->where('end_date', '>=', now());
+                    ->where('end_date', '>=', now())
+                    ->whereTime('end_time', '>=', now()->toTimeString());
             });
         if ($only_public) {
             $events = $events->where('is_private', 0);

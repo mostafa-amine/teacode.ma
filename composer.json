@@ -16,6 +16,7 @@
         "laravel/framework": "^9.32",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^4.0",
+        "spatie/db-dumper": "^3.3",
         "spatie/laravel-sitemap": "^6.2",
         "yajra/laravel-datatables-oracle": "^10.1"
     },

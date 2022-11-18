@@ -43,7 +43,7 @@ Route::middleware('cache.headers:public;max_age=15811200;etag')->group(function 
             Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
             // Tools
-            Route::get('/sqldump', 'ToolController@sqldump');
+            Route::get('/export-db', 'ToolController@export_db');
         });
     });
 

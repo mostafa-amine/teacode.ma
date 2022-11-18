@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ToolController extends Controller
 {
-    public function sqldump(Request $request)
+    public function export_db(Request $request)
     {
         $dumpPath = database_path('dumps/dump.sql');
         \Spatie\DbDumper\Databases\MySql::create()

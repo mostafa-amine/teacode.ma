@@ -22,5 +22,9 @@
     {
         "title": "generateSitemap",
         "slug": "generateSitemap"
-    }
+    },
+	{
+		"title": "Export DB",
+		"slug": "admin/export-db"
+	}
 ]

@@ -40,6 +40,11 @@ class ContributorController extends Controller
             $contributor->restore();
             return ['message' => 'Restored Successfully', 'contributor' => $contributor];
         }
+        if ($request->has('duplicate')) {
+            $contributor = $contributor->replicate();
+            $contributor->save();
+            return ['message' => 'Replicated Successfully', 'contributor' => $contributor];
+        }
         $image = $request->file('image');
         if ($image) {
             $image_ext = $image->clientExtension();

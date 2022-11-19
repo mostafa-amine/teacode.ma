@@ -24,7 +24,8 @@ class EventController extends Controller
             $data->title = 'TeaCode | Events list';
             $menu = json_decode(\File::get(base_path() . '/database/data/admin/menu.json'));
             if ($request->has('api')) {
-                return DataTables::eloquent(Event::orderBy('start_date', 'desc'))->make(true);
+                $events = Event::withTrashed()->orderBy('deleted_at')->orderBy('start_date', 'desc')->orderBy('id');
+                return DataTables::eloquent($events)->make(true);
             }
             return view('pages.admin.events', ['menu' => $menu, 'data' => $data]);
         } catch (\Throwable $th) {
@@ -41,11 +42,20 @@ class EventController extends Controller
             $event_id = $request->get('event_id');
             $event = null;
             if ($event_id) {
-                $event = Event::find($event_id);
+                $event = Event::withTrashed()->find($event_id);
             }
             if ($request->has('delete')) {
                 $event->delete();
                 return ['message' => 'Deleted Successfully', 'event' => $event];
+            }
+            if ($request->has('restore')) {
+                $event->restore();
+                return ['message' => 'Restored Successfully', 'event' => $event];
+            }
+            if ($request->has('duplicate')) {
+                $event = $event->replicate();
+                $event->save();
+                return ['message' => 'Replicated Successfully', 'event' => $event];
             }
             $data = $request->all();
             $extended_props = extractExtendedProps($request->get('extended_props'));

@@ -15,6 +15,16 @@ function getContributor() {
         },
         columns: [
             {data: "id", name: "id", title: "id"},
+            {
+                data: "id", name: "id", title: "Actions",
+                render: function(data, type, row) {
+                    return `<div class="actions d-flex justify-content-around">
+                        <div class="prepare-update-contributor cursor-pointer fs-2"><i class="fa-solid fa-pen-to-square"></i></div>
+                        <div class="delete-contributor cursor-pointer fs-2" data-id="${data}"><i class="fa-solid fa-trash"></i></div>
+                        <div class="restore-contributor cursor-pointer fs-2" data-id="${data}"><i class="fa-solid fa-rotate-left"></i></div>
+                    </div>`;
+                }
+            },
             {data: "fullname", name: "fullname", title: "Full Name"},
             {data: "role", name: "role", title: "Role"},
             {data: "slug", name: "slug", title: "Slug"},
@@ -29,16 +39,6 @@ function getContributor() {
                 render: function(data, type, row) {
                     let color = data ? 'red' : 'green';
                     return `<div><i class="fa-solid fa-circle" style="color: ${color}"></i></div>`;
-                }
-            },
-            {
-                data: "id", name: "id", title: "Actions",
-                render: function(data, type, row) {
-                    return `<div class="actions d-flex justify-content-around">
-                        <div class="prepare-update-contributor cursor-pointer fs-2"><i class="fa-solid fa-pen-to-square"></i></div>
-                        <div class="delete-contributor cursor-pointer fs-2" data-id="${data}"><i class="fa-solid fa-trash"></i></div>
-                        <div class="restore-contributor cursor-pointer fs-2" data-id="${data}"><i class="fa-solid fa-rotate-left"></i></div>
-                    </div>`;
                 }
             },
         ]

@@ -27,7 +27,7 @@
                         <div class="accordion-body">
                             <div class="event form-wrapper mt-2">
                                 <form id="event-form">
-                                    <input type="hidden" id="event-id" name="event_id">
+                                    <input type="text" class="form-control" id="event-id" name="event_id" placeholder="event ID">
                                     <input type="text" class="form-control" id="title" name="title" placeholder="Titre" required />
                                     <input type="text" class="form-control" id="url" name="url" placeholder="Url" required />
                                     <label for="start_date" class="form-label">Start Date</label>
@@ -55,6 +55,10 @@
                                             </button>
                                         </label>
                                         <div class="extended_props_items"></div>
+                                    </div>
+                                    <div class="form-check form-switch mb-2">
+                                        <input class="form-check-input" type="checkbox" name="duplicate" id="duplicate">
+                                        <label class="form-check-label" for="duplicate">Duplicate</label>
                                     </div>
                                     <div class="btn-actions">
                                         <button type="submit" class="form-control btn tc-blue-bg">Submit</button>

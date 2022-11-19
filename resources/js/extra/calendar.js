@@ -20,6 +20,16 @@ function getEvents() {
         },
         columns: [
             {data: "id", name: "id", title: "id"},
+            {
+                data: "id", name: "id", title: "Actions",
+                render: function(data, type, row) {
+                    return `<div class="actions d-flex justify-content-around">
+                        <div class="prepare-update-event cursor-pointer fs-2"><i class="fa-solid fa-pen-to-square"></i></div>
+                        <div class="delete-event cursor-pointer fs-2" data-id="${data}"><i class="fa-solid fa-trash"></i></div>
+                        <div class="restore-event cursor-pointer fs-2" data-id="${data}"><i class="fa-solid fa-rotate-left"></i></div>
+                    </div>`;
+                }
+            },
             {data: "title", name: "title", title: "Title"},
             {data: "url", name: "url", title: "URL"},
             {
@@ -50,12 +60,10 @@ function getEvents() {
                 }
             },
             {
-                data: "id", name: "id", title: "Actions",
+                data: "deleted_at", name: "deleted_at", title: "Active",
                 render: function(data, type, row) {
-                    return `<div class="actions d-flex justify-content-around">
-                        <div class="prepare-update-event cursor-pointer fs-2"><i class="fa-solid fa-pen-to-square"></i></div>
-                        <div class="delete-event cursor-pointer fs-2" data-id="${data}"><i class="fa-solid fa-trash"></i></div>
-                    </div>`;
+                    let color = data ? 'red' : 'green';
+                    return `<div><i class="fa-solid fa-circle" style="color: ${color}"></i></div>`;
                 }
             },
         ]
@@ -100,6 +108,25 @@ function initCalendarActions() {
             index++;
         }
         $('.extended_props_items').html(dom);
+    });
+    
+    $('#events-list').on('click', '.restore-event', function (e) {
+        if (!confirm('Are you sur ?')) {
+            return;
+        }
+        $.ajax({
+            method: 'POST',
+            url: '/admin/events',
+            data: {restore: true, event_id: $(this).data('id')},
+            success: function (response) {
+                alert(response.message);
+                table.ajax.reload(null, false);
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                console.log(jqXHR, textStatus, errorThrown);
+                alert('Error');
+            }
+        });
     });
     $('#events-list').on('click', '.delete-event', function (e) {
         if (!confirm('Are you sur ?')) {

@@ -28,7 +28,7 @@
                             <div class="contributor form-wrapper mt-2 row">
                                 <div class="col-8">
                                     <form id="contributor-form">
-                                        <input type="hidden" id="contributor-id" name="contributor_id">
+                                        <input type="text" class="form-control" id="contributor-id" name="contributor_id" placeholder="contributor ID">
                                         <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name" required />
                                         <select class="form-control" id="role" name="role" required>
                                             <option value="role" disabled selected>Role</option>
@@ -38,6 +38,10 @@
                                         </select>
                                         <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" required />
                                         <input type="file" class="form-control" id="image" name="image" placeholder="Image" />
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" name="duplicate" id="duplicate">
+                                            <label class="form-check-label" for="duplicate">Duplicate</label>
+                                        </div>
                                         <div class="btn-actions">
                                             <button type="submit" class="form-control btn tc-blue-bg">Submit</button>
                                             <button type="button" class="form-control btn tc-grey-dark-bg btn-form-clear">Clear</button>

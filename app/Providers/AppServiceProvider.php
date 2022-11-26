@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->data = new \stdClass;
             }
             if (!\Str::contains($view->name(), 'addons.banner')) {
-                $view->data->banner = getNextEvent(true);
+                $view->data->banner = Event::getNextEvent(true);
                 if ($view->data->banner) {
                     $view->data->banner->_title = strlen($view->data->banner->title) > 40 ? \Str::substr($view->data->banner->title, 0, 40).'...' : $view->data->banner->title;
                 }

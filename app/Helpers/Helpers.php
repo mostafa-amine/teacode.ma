@@ -67,7 +67,7 @@ if (!function_exists('getLinks')) {
 
             // Ineraction Links
             // 'interview' => 'https://docs.google.com/forms/d/e/1FAIpQLScwnhgc85gG4vBxq8d0uTxlBkvX6bR4LNcuI7_DNz9WEk0NTw/viewform',
-            'interview' => 'mailto:interview@teacode.ma?subject=TeaCode : Request Mock Interview&body=Here is the data we need :%0D%0D- Your Discord ID (ex : username#1234) : ??%0D- Upload your resume%0D%0D%0D',
+            'interview' => 'mailto:mock.interview@teacode.ma?subject=TeaCode : Request Mock Interview&body=Here is the data we need :%0D%0D- Your Discord ID (ex : username#1234) : ??%0D- Upload your resume%0D%0D%0D',
             'form' => 'https://docs.google.com/forms/d/e/1FAIpQLScfvQBS4fIO7bFx5u2TfXlflPRyvd5z1aSozOCKs3hnz9MfCA/viewform',
             'apply' => 'https://docs.google.com/forms/d/e/1FAIpQLScLQzCNId6LgFpMgpk3-xatL8TBn8nVPF7oWZCPBnqKpvdh2Q/viewform',
 

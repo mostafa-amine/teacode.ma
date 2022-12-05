@@ -54,13 +54,13 @@ function initDarkMode() {
 
 function initGlobalActions() {
     $('.banner-close').on('click', function () {
-        $('.banner').remove();
+        $(this).closest('.banner').remove();
     });
     $('.banner-text').on('mouseover', function () {
-        $('.banner-tooltip').addClass('show')
+        $(this).find('.banner-tooltip').addClass('show')
     })
     $('.banner-text').on('mouseleave', function () {
-        $('.banner-tooltip').removeClass('show')
+        $(this).find('.banner-tooltip').removeClass('show')
     })
 }
 

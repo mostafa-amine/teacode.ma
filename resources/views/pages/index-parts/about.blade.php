@@ -1,6 +1,7 @@
 <div id="about" class="about section-wrapper">
     <div class="section about-header">
         <div id="particles-js" class="particles-js"></div>
+        @include('addons.confetti')
         <div class="container">
             <div class="row justify-content-center align-items-center mb-3">
                 <div class="col-12">

@@ -17,9 +17,12 @@
     <body class="antialiased {{ $mode . '-mode' }}">
         {{-- @include('addons.google-tag-manager-body') --}}
         <div class="wrapper">
+            <div class="banner-container">
                 @if ($data->banner)
                     @include('addons.banner')
                 @endif
+                @include('addons.special')
+            </div>
                 @yield('content')
         </div>
         {{-- @include('addons.fb-btn') --}}

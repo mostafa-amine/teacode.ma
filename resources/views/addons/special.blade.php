@@ -1,4 +1,4 @@
-<div class="banner special tc-blue-dark-1-bg">
+<div class="banner special tc-blue-bg">
     <div class="container banner-container">
         <div class="banner-wrapper">
             <div class="banner-text">

@@ -1,5 +1,16 @@
 <?php
 
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\ContributorController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\GotoController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\ToolController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,51 +29,51 @@ Route::middleware('cache.headers:public;max_age=15811200;etag')->group(function 
 
     // \Auth::routes();
 
-    Route::get('/_assets/{type?}', 'PageController@getAssets');
+    Route::get('/_assets/{type?}', [PageController::class , 'getAssets']);
 
     Route::group(['prefix' => 'admin'], function () {
 
         Route::redirect('/', 'admin/calendar');
-        Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
-        Route::post('/login', 'Auth\LoginController@login');
+        Route::get('/login', [LoginController::class , 'showLoginForm'])->name('login');
+        Route::post('/login', [LoginController::class , 'login']);
 
-        Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-        Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-        Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-        Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+        Route::get('/password/reset', [ForgotPasswordController::class , 'showLinkRequestForm'])->name('password.request');
+        Route::post('/password/email', [ForgotPasswordController::class , 'sendResetLinkEmail'])->name('password.email');
+        Route::get('/password/reset/{token}', [ResetPasswordController::class , 'showResetForm'])->name('password.reset');
+        Route::post('/password/reset', [ResetPasswordController::class , 'reset'])->name('password.update');
 
         Route::group(['middleware' => 'auth'], function() {
             // Events
-            Route::get('/events', 'EventController@getEvents')->name('events.index');
-            Route::post('/events', 'EventController@updateEvent')->name('events.update');
-            Route::get('/calendar', 'EventController@calendar');
+            Route::get('/events', [EventController::class , 'getEvents'])->name('events.index');
+            Route::post('/events', [EventController::class , 'updateEvent'])->name('events.update');
+            Route::get('/calendar', [EventController::class , 'calender']);
             // Contributors
-            Route::get('/contributors', 'ContributorController@getContributors')->name('contributors.get');
-            Route::post('/contributors', 'ContributorController@updateContributors')->name('contributors.update');
+            Route::get('/contributors', [ContributorController::class , 'getContributors'])->name('contributors.get');
+            Route::post('/contributors', [ContributorController::class , 'updateContributors'])->name('contributors.update');
             // Auth
-            Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+            Route::post('/logout', [LoginController::class , 'logout'])->name('logout');
 
             // Tools
-            Route::get('/export-db', 'ToolController@export_db');
+            Route::get('/export-db', [ToolController::class , 'export_db']);
         });
     });
 
-    Route::get('/', 'HomeController@home');
+    Route::get('/', [HomeController::class , 'home']);
 
     // Pages
-    Route::get('/p/{page}', 'PageController@getPage');
+    Route::get('/p/{page}', [PageController::class , 'getPage']);
 
     // SiteMap
-    Route::get('/sitemap', 'SitemapController@sitemap');
-    Route::get('/generateSitemap', 'SitemapController@generateSitemap');
+    Route::get('/sitemap', [SitemapController::class , 'sitemap']);
+    Route::get('/generateSitemap', [SitemapController::class , 'generateSitemap']);
 
     // External
-    Route::get('/{link}', 'GotoController@goto');
+    Route::get('/{link}', [GotoController::class , 'goto']);
 
     Route::group(['prefix' => 'api'], function () {
-        Route::get('/events', 'ApiController@getEvents');
-        Route::get('/events/next', 'ApiController@getNextEvent');
+        Route::get('/events', [ApiController::class , 'getEvents']);
+        Route::get('/events/next', [ApiController::class , 'getNextEvent']);
     });
 
-    Route::any('/{var}', 'HomeController@home')->where('var', '.*');
+    Route::any('/{var}', [HomeController::class , 'home'])->where('var', '.*');
 });

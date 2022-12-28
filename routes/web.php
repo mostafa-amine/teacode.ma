@@ -46,7 +46,7 @@ Route::middleware('cache.headers:public;max_age=15811200;etag')->group(function 
             // Events
             Route::get('/events', [EventController::class , 'getEvents'])->name('events.index');
             Route::post('/events', [EventController::class , 'updateEvent'])->name('events.update');
-            Route::get('/calendar', [EventController::class , 'calender']);
+            Route::get('/calendar', [EventController::class , 'calendar']);
             // Contributors
             Route::get('/contributors', [ContributorController::class , 'getContributors'])->name('contributors.get');
             Route::post('/contributors', [ContributorController::class , 'updateContributors'])->name('contributors.update');
